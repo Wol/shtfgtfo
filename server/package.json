@@ -1,0 +1,13 @@
+{
+  "name": "shtfgtfo",
+  "version": "1.0.0",
+  "dependencies": {
+    "faye": "latest",
+    "georedis": "^3.1.1",
+    "redis": "^2.8.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "NODE_ENV=${NODE_ENV:=test} node server.js"
+  }
+}
