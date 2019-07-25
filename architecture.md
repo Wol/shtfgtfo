@@ -1,26 +1,34 @@
 Client
-- Angular (JS?)
+- Vue Components
 - Google Maps API
 
 Server
 - PHP Backend
 -- Laravel driven interface
--- Do we need an API? Lumen?
 
-- Websocket
--- NodeJS script
---- Faye.JS - Communication between the client and nodejs app. Also allows other clients to get an update
---- Redis + Redis Geo (https://github.com/arjunmehta/node-georedis) to store the data temporarily
+Websocket
+- Pusher.js
+  - Maybe enable webhooks to save to server?
 
 
-- Database
--- MySQL with Spatial functions (https://dev.mysql.com/doc/refman/5.7/en/spatial-types.html)
+Database
+- MySQL
+  - Users (cookie bag for geoguessr session)
+  - Sessions (laravel sessions as normal)
+  - Games (token, userid)
+  - Movements (id, game token, game round idx, user id, gmaps pano id, lat, lng, azi/elev timestamp, previous_movement_id)
+  - Annotations (game token, game round idx, user id, json representation, movement_id)
 
 
 -- The Gist ---
-The main PHP app will handle the request to open up a game based on session id / user ID. If the data in the Redis cache exists and is up to date (why wouldnt it be?), then it loads the initial state from Redis (either via a PHP api call, rather than websocket?)
-The client then displays the map.
-Movements are sent, via the Faye JS connection to the NodeJS app. This then can store the latest position in the Redis server
-On a schedule, the PHP app will then read from the Redis store and then persist the points to the MySQL database using the MySQL Spatial functions
+A User logs in. Their cookiebag is stored against their user.
+Download a list of unfinished games? (how do we start a new game? Do we do that in geoguessr?)
+Signed route to open a game with a given userid
+Game shows gmap and streetview
 
-This allows the PHP app to do analysis on the route using MySQL functionality but maintains the latency by using Redis. 
+Initially all users follow the movements of the initial player
+A client can be configured to follow any given player (position and orientation)
+If a following client moves the streetview orientation, then this will stick 
+
+
+
