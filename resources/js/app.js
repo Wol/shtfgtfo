@@ -19,7 +19,9 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import GameComponent from "./components/Game";
+
+Vue.component('game-component', GameComponent);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
